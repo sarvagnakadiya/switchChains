@@ -1,14 +1,13 @@
 import './App.css';
 import { ethers } from "ethers";
-import data_goerli from './artifacts/data_goerli.json';
-import data_skale from './artifacts/data_skale.json';
-import data_cronos from './artifacts/data_cronos.json';
+import data from './artifacts/data.json';
+
 
 function App() {
   // const CONTRACT_ADDRESS_RINKEBY = "0xF7B4C1806b82d6a81EC32360Ac4E3fcBE91f0C2B";
-  const CONTRACT_ADDRESS_GOERLI = "0x3265B27312cc692F9B79456Ba9e8Dc6913cE9132";
-  const CONTRACT_ADDRESS_SKALE = "0xbf8a6a5c6f8602fb27c6231ebd08d2d99c94e0df";
-  // const CONTRACT_ADDRESS_AURORA = " 0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
+  const CONTRACT_ADDRESS_GOERLI = "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
+  const CONTRACT_ADDRESS_SKALE = "0x01d83b1aaf12a98ccf0f83147732bfe9f53c61c1";
+  const CONTRACT_ADDRESS_AURORA = "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
   const CONTRACT_ADDRESS_CRONOS = "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
 
 
@@ -199,6 +198,52 @@ function App() {
     }
   }
 
+  const checkBalance = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        // const connectedContract = new ethers.Contract(CONTRACT_ADDRESS_GOERLI, data_goerli.abi, signer);
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork()
+        console.log("switch case for this case is: " + chainId);
+        switch (chainId) {
+          case 5:
+            const connectedContract_g = new ethers.Contract(CONTRACT_ADDRESS_GOERLI, data.abi, signer);
+            console.log("Going to pop wallet now to pay gas...")
+            let g_tx = await connectedContract_g.contractBalance();
+            console.log(g_tx.toNumber());
+            break;
+          case 647426021:
+            const connectedContract_s = new ethers.Contract(CONTRACT_ADDRESS_SKALE, data.abi, signer);
+            console.log("Going to pop wallet now to pay gas...")
+            let s_tx = await connectedContract_s.contractBalance();
+            console.log(s_tx.toNumber());
+            break;
+          case 338:
+            const connectedContract_c = new ethers.Contract(CONTRACT_ADDRESS_CRONOS, data.abi, signer);
+            console.log("Going to pop wallet now to pay gas...")
+            let c_tx = await connectedContract_c.contractBalance();
+            console.log(c_tx.toNumber());
+            break;
+          case 1313161555:
+            const connectedContract_a = new ethers.Contract(CONTRACT_ADDRESS_AURORA, data.abi, signer);
+            console.log("Going to pop wallet now to pay gas...")
+            let a_tx = await connectedContract_a.contractBalance();
+            console.log(a_tx.toNumber());
+            break;
+        }
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <div className="App">
@@ -216,6 +261,9 @@ function App() {
       </button>
       <button onClick={addAurora} className="cta-button connect-wallet-button">
         ADD AURORA
+      </button>
+      <button onClick={checkBalance} className="cta-button connect-wallet-button">
+        check Balance
       </button>
 
     </div>
