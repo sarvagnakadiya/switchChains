@@ -11,7 +11,7 @@ function App() {
   const CONTRACT_ADDRESS_CRONOS = "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
 
 
-  //---------------------------------------------------switch to GOERLI
+  //--------------------------------------------------- switch to GOERLI
   const connectToGoerli = async () => {
     try {
       const { ethereum } = window;
@@ -58,7 +58,7 @@ function App() {
     }
   }
 
-  //switching to  SKALE network
+  //---------------------------------------------------switching to  SKALE network
   const connectToSkale = async () => {
     try {
       const { ethereum } = window;
@@ -105,7 +105,7 @@ function App() {
   }
 
 
-  //For SKALE NETWORK
+  //---------------------------------------------------For SKALE NETWORK
   const addSkale = async () => {
     const { ethereum } = window;
     if (ethereum) {
@@ -140,7 +140,7 @@ function App() {
     }
   }
 
-  //For AURORA NETWORK
+  //---------------------------------------------------For AURORA NETWORK
   const addAurora = async () => {
     const { ethereum } = window;
     if (ethereum) {
@@ -175,7 +175,7 @@ function App() {
     }
   }
 
-  //For CRONOS NETWORK
+  //---------------------------------------------------For CRONOS NETWORK
   const addCronos = async () => {
     const { ethereum } = window;
     if (ethereum) {
